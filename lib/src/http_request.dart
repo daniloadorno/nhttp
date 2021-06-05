@@ -92,6 +92,13 @@ Future<http.Response> delete(String url, {Map<String, String>? headers, int? tim
 }
 
 Future<http.Response> _sendRequest(Map<String, dynamic> request) async {
+  if (request["headers"] != null){
+    for (var entry in request["headers"].entries){
+      if (entry.key.toLowerCase() == "content-type" && !entry.value.toLowerCase().contains("charset")){
+        request["headers"][entry.key] = "${entry.value}; charset=utf-8";
+      }
+    }
+  }
   final Map<String, dynamic> response = (await _channel.invokeMapMethod<String, dynamic>('sendRequest', request)) ?? {};
   return http.Response(response["body"], response["statusCode"]);
 }

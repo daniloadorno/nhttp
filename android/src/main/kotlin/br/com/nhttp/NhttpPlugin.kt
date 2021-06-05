@@ -6,12 +6,12 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 class NhttpPlugin : FlutterPlugin, MethodCallHandler {
 
