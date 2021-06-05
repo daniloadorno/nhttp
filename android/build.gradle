@@ -1,4 +1,4 @@
-group 'com.ssa.nhttp'
+group 'br.com.nhttp'
 version '1.0-SNAPSHOT'
 
 buildscript {

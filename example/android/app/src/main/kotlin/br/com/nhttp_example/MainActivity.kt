@@ -1,4 +1,4 @@
-package com.ssa.nhttp_example
+package br.com.nhttp_example
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,4 +1,4 @@
-package com.ssa.nhttp
+package br.com.nhttp
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
