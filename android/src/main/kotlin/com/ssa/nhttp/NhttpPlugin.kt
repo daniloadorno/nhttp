@@ -26,7 +26,7 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
         if (call.method == "sendRequest") {
             val url = call.argument<String>("url")!!
             val method = call.argument<String>("method")!!
-            val headers = call.argument<HashMap<String, Any>>("headers") ?: HashMap()
+            val headers = call.argument<HashMap<String, String>>("headers") ?: HashMap()
             val timeOut = call.argument<Int>("timeOut") ?: 60000
             val body = call.argument<String>("body") ?: ""
             sendRequest(url, method, headers, timeOut, body, result)
@@ -39,13 +39,13 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun sendRequest(url: String, method: String, headers: HashMap<String, Any>, timeOut: Int, body: String, @NonNull result: Result) {
+    private fun sendRequest(url: String, method: String, headers: HashMap<String, String>, timeOut: Int, body: String, @NonNull result: Result) {
         doAsync {
             val conn = URL(url).openConnection() as HttpURLConnection
             try {
                 conn.requestMethod = method
                 headers.entries.forEach {
-                    conn.setRequestProperty(it.key, it.value as String)
+                    conn.setRequestProperty(it.key, it.value)
                 }
                 conn.readTimeout = timeOut
                 conn.connectTimeout = timeOut

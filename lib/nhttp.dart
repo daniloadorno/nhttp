@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 const MethodChannel _channel = const MethodChannel('nhttp');
 
-Future<Response> get(String url, {Map<String, dynamic>? headers}) async {
+Future<Response> get(String url, {Map<String, String>? headers}) async {
   final Map<String, dynamic> request = {
     "method": "GET",
     "url": url,
@@ -12,7 +12,7 @@ Future<Response> get(String url, {Map<String, dynamic>? headers}) async {
   return await _sendRequest(request);
 }
 
-Future<Response> post(String url, {Map<String, dynamic>? headers, String? body}) async {
+Future<Response> post(String url, {Map<String, String>? headers, String? body}) async {
   final Map<String, dynamic> request = {
     "method": "POST",
     "url": url,
@@ -22,7 +22,7 @@ Future<Response> post(String url, {Map<String, dynamic>? headers, String? body})
   return await _sendRequest(request);
 }
 
-Future<Response> put(String url, {Map<String, dynamic>? headers, String? body}) async {
+Future<Response> put(String url, {Map<String, String>? headers, String? body}) async {
   final Map<String, dynamic> request = {
     "method": "PUT",
     "url": url,
@@ -32,7 +32,7 @@ Future<Response> put(String url, {Map<String, dynamic>? headers, String? body}) 
   return await _sendRequest(request);
 }
 
-Future<Response> delete(String url, {Map<String, dynamic>? headers}) async {
+Future<Response> delete(String url, {Map<String, String>? headers}) async {
   final Map<String, dynamic> request = {
     "method": "DELETE",
     "url": url,
