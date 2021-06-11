@@ -20,6 +20,8 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _getData() async {
     final nhttp.Response response = await nhttp.get("https://jsonplaceholder.typicode.com/albums/1");
+    print('response');
+    print(response.bodyBytes);
     print(response.statusCode);
     print(response.body);
   }
