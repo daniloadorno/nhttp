@@ -49,9 +49,9 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
                 }
                 conn.readTimeout = timeOut
                 conn.connectTimeout = timeOut
+                conn.doInput = true
 
                 if (mutableListOf("POST", "PUT").contains(method)) {
-                    conn.doInput = true
                     conn.doOutput = true
 
                     val outputStream = conn.outputStream
@@ -67,9 +67,9 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
                 val response = HashMap<String, Any>()
                 response["statusCode"] = conn.responseCode
                 try {
-                    response["body"] = conn.inputStream.bufferedReader().use { it.readText() }
+                    response["body"] = conn.inputStream.readBytes()
                 } catch (e: Exception){
-                    response["body"] = conn.errorStream.bufferedReader().use { it.readText() }
+                    response["body"] = conn.errorStream.readBytes()
                 }
 
                 uiThread {

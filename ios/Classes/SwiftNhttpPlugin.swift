@@ -50,13 +50,13 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
              result(FlutterError (code:"400", message:error?.localizedDescription, details:nil))
              return
           }
-          let responseString = String(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+          let responseBody = Int16(data: data!, encoding: .utf8)
           let httpResponse = response as? HTTPURLResponse
           let responseCode = httpResponse?.statusCode
 
           var r :Dictionary = Dictionary<String, Any>()
           r["statusCode"]  = responseCode;
-          r["body"]  = responseString;
+          r["body"]  = responseBody;
           result(r);
       }
       task.resume()
@@ -90,13 +90,13 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
               result(FlutterError (code:"400", message:error?.localizedDescription, details:nil))
               return
           }
-          let responseString = String(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+          let responseBody = Int16(data: data!, encoding: .utf8)
           let httpResponse = response as? HTTPURLResponse
           let responseCode = httpResponse?.statusCode
 
           var r :Dictionary = Dictionary<String, Any>()
           r["statusCode"]  = responseCode;
-          r["body"]  = responseString;
+          r["body"]  = responseBody;
           result(r);
       }
       task.resume()
