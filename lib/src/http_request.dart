@@ -100,5 +100,5 @@ Future<http.Response> _sendRequest(Map<String, dynamic> request) async {
     }
   }
   final Map<String, dynamic> response = (await _channel.invokeMapMethod<String, dynamic>('sendRequest', request)) ?? {};
-  return http.Response.bytes(response["body"], response["statusCode"]);
+  return http.Response.bytes(response["body"], response["statusCode"], headers: request["headers"]);
 }
