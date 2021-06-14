@@ -12,7 +12,7 @@ Future<http.Response> get(String url, {Map<String, String>? headers, int? timeOu
   final Map<String, dynamic> request = {
     "method": "GET",
     "url": url,
-    "headers": headers ?? const {},
+    "headers": headers ?? const <String, String>{},
     "timeOut": Duration(seconds: timeOut ?? _timeOut).inMilliseconds
   };
   if (_useNative){
@@ -29,7 +29,7 @@ Future<http.Response> post(String url, {Map<String, String>? headers, Object? bo
   final Map<String, dynamic> request = {
     "method": "POST",
     "url": url,
-    "headers": headers ?? const {},
+    "headers": headers ?? const <String, String>{},
     "body": body ?? "",
     "timeOut": Duration(seconds: timeOut ?? _timeOut).inMilliseconds
   };
@@ -49,7 +49,7 @@ Future<http.Response> put(String url, {Map<String, String>? headers, Object? bod
   final Map<String, dynamic> request = {
     "method": "PUT",
     "url": url,
-    "headers": headers ?? const {},
+    "headers": headers ?? const <String, String>{},
     "body": body ?? "",
     "timeOut": Duration(seconds: timeOut ?? _timeOut).inMilliseconds
   };
@@ -78,7 +78,7 @@ Future<http.Response> delete(String url, {Map<String, String>? headers, int? tim
   final Map<String, dynamic> request = {
     "method": "DELETE",
     "url": url,
-    "headers": headers ?? const {},
+    "headers": headers ?? const <String, String>{},
     "timeOut": Duration(seconds: timeOut ?? _timeOut).inMilliseconds
   };
   if (_useNative){
