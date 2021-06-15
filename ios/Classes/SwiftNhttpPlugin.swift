@@ -50,7 +50,8 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
              result(FlutterError (code:"400", message:error?.localizedDescription, details:nil))
              return
           }
-          let responseBody = Int16(data: data!, encoding: .utf8)
+          let responseBodyStr = String(data: data!, encoding: .utf8)
+          let responseBody = [UInt8](responseBodyStr!.utf8)
           let httpResponse = response as? HTTPURLResponse
           let responseCode = httpResponse?.statusCode
 
@@ -91,7 +92,8 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
               return
           }
           let responseBody = Int16(data: data!, encoding: .utf8)
-          let httpResponse = response as? HTTPURLResponse
+          let responseBodyStr = String(data: data!, encoding: .utf8)
+          let responseBody = [UInt8](responseBodyStr!.utf8)
           let responseCode = httpResponse?.statusCode
 
           var r :Dictionary = Dictionary<String, Any>()
