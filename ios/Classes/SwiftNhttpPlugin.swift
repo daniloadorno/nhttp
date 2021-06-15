@@ -93,6 +93,7 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
           }
           let responseBodyStr = String(data: data!, encoding: .utf8)
           let responseBody = [UInt8](responseBodyStr!.utf8)
+          let httpResponse = response as? HTTPURLResponse
           let responseCode = httpResponse?.statusCode
 
           var r :Dictionary = Dictionary<String, Any>()
