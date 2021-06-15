@@ -56,8 +56,8 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
           let responseCode = httpResponse?.statusCode
 
           var r :Dictionary = Dictionary<String, Any>()
-          r["statusCode"]  = responseCode;
-          r["body"]  = responseBody;
+          r["statusCode"] = responseCode;
+          r["body"] = responseBody;
           result(r);
       }
       task.resume()
@@ -97,8 +97,8 @@ public class SwiftNhttpPlugin: NSObject, FlutterPlugin {
           let responseCode = httpResponse?.statusCode
 
           var r :Dictionary = Dictionary<String, Any>()
-          r["statusCode"]  = responseCode;
-          r["body"]  = responseBody;
+          r["statusCode"] = responseCode;
+          r["body"] = responseBody;
           result(r);
       }
       task.resume()
