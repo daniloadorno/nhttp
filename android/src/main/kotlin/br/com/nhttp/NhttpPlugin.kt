@@ -78,7 +78,7 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
 
             } catch (e: Exception) {
                 uiThread {
-                    result.error(e.message, e.localizedMessage, null)
+                    result.error("${e.message}", e.localizedMessage, null)
                 }
             } finally {
                 conn.disconnect();
