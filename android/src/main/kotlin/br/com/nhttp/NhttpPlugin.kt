@@ -28,7 +28,7 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
             val method = call.argument<String>("method")!!
             val headers = call.argument<HashMap<String, String>>("headers") ?: HashMap()
             val timeOut = call.argument<Int>("timeOut") ?: 60000
-            val body = call.argument<String>("body") ?: ""
+            val body = try { call.argument<String>("body") ?: "" } catch (e: Exception) { "" }
             sendRequest(url, method, headers, timeOut, body, result)
         } else {
             result.notImplemented()
