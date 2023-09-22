@@ -1,23 +1,22 @@
 name: nhttp
 description: Native Http
-version: 1.0.3
+version: 1.0.4
 homepage: https://github.com/daniloadorno/nhttp
 maintainer: Danilo Adorno <daniloadorno@gmail.com>
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  http: ^0.13.5
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

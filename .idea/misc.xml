@@ -6,4 +6,7 @@
   <component name="ProjectRootManager" version="2" project-jdk-name="Android API 22 Platform" project-jdk-type="Android SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="ProjectType">
+    <option name="id" value="io.flutter" />
+  </component>
 </project>
