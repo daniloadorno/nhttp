@@ -6,6 +6,7 @@ maintainer: Danilo Adorno <daniloadorno@gmail.com>
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
+  flutter: ">=3.7.0"
 
 dependencies:
   flutter:
