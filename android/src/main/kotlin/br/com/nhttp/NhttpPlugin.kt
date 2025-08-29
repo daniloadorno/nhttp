@@ -6,12 +6,17 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 class NhttpPlugin : FlutterPlugin, MethodCallHandler {
 
@@ -39,9 +44,25 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun sendRequest(url: String, method: String, headers: HashMap<String, String>, timeOut: Int, body: String, @NonNull result: Result) {
-        doAsync {
-            val conn = URL(url).openConnection() as HttpURLConnection
+        GlobalScope.launch(Dispatchers.Default) {
+
+        val trustAllCerts = arrayOf<TrustManager>(
+            object : X509TrustManager {
+                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+                override fun checkClientTrusted(chain: Array<X509Certificate>?, authType: String?) {}
+                override fun checkServerTrusted(chain: Array<X509Certificate>?, authType: String?) {}
+            }
+        )
+
+        val sc = SSLContext.getInstance("SSL")
+        sc.init(null, trustAllCerts, SecureRandom())
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.socketFactory)
+        HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true }
+
+        val conn = URL(url).openConnection() as HttpURLConnection
             try {
                 conn.requestMethod = method
                 headers.entries.forEach {
@@ -72,12 +93,12 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
                     response["body"] = conn.errorStream.readBytes()
                 }
 
-                uiThread {
+                launch(Dispatchers.Main) {
                     result.success(response)
                 }
 
             } catch (e: Exception) {
-                uiThread {
+                launch(Dispatchers.Main) {
                     result.error("${e.message}", e.localizedMessage, null)
                 }
             } finally {
