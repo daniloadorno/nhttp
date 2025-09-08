@@ -1,6 +1,6 @@
 name: nhttp
 description: Native Http
-version: 1.0.7
+version: 1.0.9
 homepage: https://github.com/daniloadorno/nhttp
 maintainer: Danilo Adorno <daniloadorno@gmail.com>
 
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
 
-  http: ^1.2.2
+  http: ^1.5.0
 
 dev_dependencies:
   flutter_test:

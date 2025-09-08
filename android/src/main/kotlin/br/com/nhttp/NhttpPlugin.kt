@@ -17,6 +17,7 @@ import java.net.URL
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
+import android.os.Build
 
 class NhttpPlugin : FlutterPlugin, MethodCallHandler {
 
@@ -48,19 +49,21 @@ class NhttpPlugin : FlutterPlugin, MethodCallHandler {
     private fun sendRequest(url: String, method: String, headers: HashMap<String, String>, timeOut: Int, body: String, @NonNull result: Result) {
         GlobalScope.launch(Dispatchers.Default) {
 
-        val trustAllCerts = arrayOf<TrustManager>(
-            object : X509TrustManager {
-                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-                override fun checkClientTrusted(chain: Array<X509Certificate>?, authType: String?) {}
-                override fun checkServerTrusted(chain: Array<X509Certificate>?, authType: String?) {}
-            }
-        )
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            val trustAllCerts = arrayOf<TrustManager>(
+                object : X509TrustManager {
+                    override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+                    override fun checkClientTrusted(chain: Array<X509Certificate>?, authType: String?) {}
+                    override fun checkServerTrusted(chain: Array<X509Certificate>?, authType: String?) {}
+                }
+            )
 
-        val sc = SSLContext.getInstance("SSL")
-        sc.init(null, trustAllCerts, SecureRandom())
+            val sc = SSLContext.getInstance("SSL")
+            sc.init(null, trustAllCerts, SecureRandom())
 
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.socketFactory)
-        HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true }
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.socketFactory)
+            HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true }
+        }
 
         val conn = URL(url).openConnection() as HttpURLConnection
             try {
